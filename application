@@ -1,0 +1,34 @@
+server {
+
+    listen   80;
+
+    server_name SERVER_NAME;
+
+    root PROJECT_ROOT_PATH;
+
+
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_connect_timeout 20;
+        proxy_read_timeout 60;
+        proxy_pass http://localhost:8000/;
+    }
+
+    location /static {
+            autoindex on;
+            root STATIC_ROOT;
+    }
+
+    location /media {
+            autoindex on;
+            root STATIC_ROOT;
+    }
+
+    error_page 500 502 503 504 /templates/500.html;
+
+}
