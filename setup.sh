@@ -20,8 +20,10 @@ sudo apt-get install supervisor <<<y
 sudo apt-get install nginx <<<y
 
 # load global variables
-. sameedo.conf
-sudo pip install django==$DJANGO_VERSION
+. GANDS.conf
+sudo git clone $PROJECT_GIT_URL
+
+sudo pip install django==1.6
 # install the required requirements for the application
 sudo pip install django-crispy-forms
 sudo apt-get install python-pandas <<<y
@@ -29,32 +31,31 @@ sudo pip install mpld3
 sudo pip install jinja2
 sudo pip install reportlab
 sudo pip install logger
-sudo git clone https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
-sudo git clone https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
-
-#writing the config file
-echo -e '\nNUM_WORKERS='$NUM_WORKERS >> gunicorn_config.sh
-echo 'cd '$PROJECT_ROOT_PATH >> gunicorn_config.sh
-echo 'test -d $LOGDIR || mkdir -p $LOGDIR' >> gunicorn_config.sh
-echo 'DJANGO_SETTINGS_MODULE='$DJANGO_SETTINGS_FILE >> gunicorn_config.sh
-echo 'DJANGO_WSGI_MODULE='$DJANGO_WSGI_FILE >> gunicorn_config.sh
-echo 'exec gunicorn Ehsibha.wsgi:application --preload --debug --log-level=debug --log-file=$LOGFILE -w $NUM_WORKERS --settings=$DJANGO_SETTINGS_MODULE' >> gunicorn_config.sh
+sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
+sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
 #copy gunicorn config file to /usr/local/bin
-sudo cp gunicorn_config.sh /usr/local/bin
+sudo cp GANDS/gunicorn_config.sh /usr/local/bin
+#writing the config file
+echo -e '\nNUM_WORKERS='$NUM_WORKERS >> /usr/local/bin/gunicorn_config.sh
+echo 'cd '$PROJECT_ROOT_PATH >> /usr/local/bin/gunicorn_config.sh
+echo 'test -d $LOGDIR || mkdir -p $LOGDIR' >> /usr/local/bin/gunicorn_config.sh
+echo 'DJANGO_SETTINGS_MODULE='$DJANGO_SETTINGS_FILE >> /usr/local/bin/gunicorn_config.sh
+echo 'DJANGO_WSGI_MODULE='$DJANGO_WSGI_FILE >> /usr/local/bin/gunicorn_config.sh
+echo 'exec gunicorn '$DJANGO_WSGI_FILE':application --preload --debug --log-level=debug --log-file=$LOGFILE -w $NUM_WORKERS --settings=$DJANGO_SETTINGS_MODULE' >> /usr/local/bin/gunicorn_config.sh
 cd /usr/local/bin
 # change file permissions
 sudo chmod u+x gunicorn_config.sh
-#rename application config file name
-cd /home/ubuntu/ehsibhasite/generic-nginx-config/
-mv application.conf $APPLICATION_NAME'.conf'
-#writing application config file
-echo '[program:'$APPLICATION_NAME']' >> $APPLICATION_NAME'.conf'
-echo 'directory ='$PROJECT_ROOT_PATH >> $APPLICATION_NAME'.conf'
-echo 'command = /usr/local/bin/gunicorn_config.sh' >> $APPLICATION_NAME'.conf'
-echo 'stdout_logfile = /home/ubuntu/log/log.log' >> $APPLICATION_NAME'.conf'
-echo 'stderr_logfile = /home/ubuntu/log/error.log' >> $APPLICATION_NAME'.conf'
+cd /home/ubuntu/
 #copy application config file to /etc/supervisor/conf.d
-sudo cp $APPLICATION_NAME'.conf' /etc/supervisor/conf.d
+sudo cp GANDS/application.conf /etc/supervisor/conf.d
+#rename application config file name
+sudo mv GANDS/application.conf GANDS/$APPLICATION_NAME'.conf'
+#writing application config file
+echo '[program:'$APPLICATION_NAME']' >> GANDS/$APPLICATION_NAME'.conf'
+echo 'directory ='$PROJECT_ROOT_PATH >> GANDS/$APPLICATION_NAME'.conf'
+echo 'command = /usr/local/bin/gunicorn_config.sh' >> GANDS/$APPLICATION_NAME'.conf'
+echo 'stdout_logfile = /home/ubuntu/log/log.log' >> GANDS/$APPLICATION_NAME'.conf'
+echo 'stderr_logfile = /home/ubuntu/log/error.log' >> GANDS/$APPLICATION_NAME'.conf'
 #creating log directory and files
 mkdir /home/ubuntu/log
 touch /home/ubuntu/log/log.log
@@ -65,11 +66,11 @@ sudo supervisorctl update
 #start nginx server
 sudo service nginx start
 #rename application file name
-mv application $APPLICATION_NAME
-sed -i "s@STATIC_ROOT@$STATIC_ROOT@g" $APPLICATION_NAME
-sed -i "s@SERVER_NAME@$SERVER_NAME@g" $APPLICATION_NAME
-sed -i "s@PROJECT_ROOT_PATH@$PROJECT_ROOT_PATH@g" $APPLICATION_NAME
-sudo cp $APPLICATION_NAME /etc/nginx/sites-available
+sudo cp GANDS/application /etc/nginx/sites-available
+sudo mv /etc/nginx/sites-available/application /etc/nginx/sites-available/$APPLICATION_NAME
+sed -i "s@STATIC_ROOT@$STATIC_ROOT@g" /etc/nginx/sites-available/$APPLICATION_NAME
+sed -i "s@SERVER_NAME@$SERVER_NAME@g" /etc/nginx/sites-available/$APPLICATION_NAME
+sed -i "s@PROJECT_ROOT_PATH@$PROJECT_ROOT_PATH@g" /etc/nginx/sites-available/$APPLICATION_NAME
 cd $PROJECT_ROOT_PATH
 sudo touch $APPLICATION_NAME'.log'
 sudo chmod a+w $APPLICATION_NAME'.log'
@@ -77,7 +78,7 @@ mkdir -p $STATIC_ROOT'/static'
 cd $PROJECT_ROOT_PATH
 sudo python manage.py collectstatic --settings=$DJANGO_SETTINGS_FILE <<<yes
 cd /etc/nginx/sites-available/
-sudo ln /home/ubuntu/ehsibhasite/generic-nginx-config/$APPLICATION_NAME ../sites-enabled/$APPLICATION_NAME
+sudo ln /etc/nginx/sites-available/$APPLICATION_NAME ../sites-enabled/$APPLICATION_NAME
 cd ../sites-enabled/
 sudo rm default
 cd /home/ubuntu/log/
