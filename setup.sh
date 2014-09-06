@@ -12,6 +12,7 @@ sudo apt-get install python-setuptools
 sudo apt-get install libevent-dev <<<y
 sudo apt-get install libfreetype6-dev <<<y
 sudo apt-get install libpng-dev
+sudo apt-get install python-pandas <<<y
 sudo pip install setuptools
 sudo pip install ipython
 sudo pip install gunicorn
@@ -26,7 +27,6 @@ sudo pip install -r $REQUIREMENTS_FILE_PATH
 #sudo pip install django==1.6
 ## install the required requirements for the application
 #sudo pip install django-crispy-forms
-#sudo apt-get install python-pandas <<<y
 #sudo pip install mpld3
 #sudo pip install jinja2
 #sudo pip install reportlab
