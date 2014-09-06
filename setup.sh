@@ -20,7 +20,7 @@ sudo apt-get install supervisor <<<y
 sudo apt-get install nginx <<<y
 
 # load global variables
-. GANDS.conf
+. GANDS/GANDS.conf
 sudo git clone $PROJECT_GIT_URL
 
 sudo pip install django==1.6
