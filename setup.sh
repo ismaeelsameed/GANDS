@@ -31,8 +31,8 @@ sudo pip install mpld3
 sudo pip install jinja2
 sudo pip install reportlab
 sudo pip install logger
-sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
-sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
+#sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
+#sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
 #copy gunicorn config file to /usr/local/bin
 sudo cp GANDS/gunicorn_config.sh /usr/local/bin
 #writing the config file
