@@ -49,13 +49,13 @@ cd /home/ubuntu/
 #copy application config file to /etc/supervisor/conf.d
 sudo cp GANDS/application.conf /etc/supervisor/conf.d
 #rename application config file name
-sudo mv GANDS/application.conf GANDS/$APPLICATION_NAME'.conf'
+sudo mv /etc/supervisor/conf.d/application.conf /etc/supervisor/conf.d/$APPLICATION_NAME'.conf'
 #writing application config file
-echo '[program:'$APPLICATION_NAME']' >> GANDS/$APPLICATION_NAME'.conf'
-echo 'directory ='$PROJECT_ROOT_PATH >> GANDS/$APPLICATION_NAME'.conf'
-echo 'command = /usr/local/bin/gunicorn_config.sh' >> GANDS/$APPLICATION_NAME'.conf'
-echo 'stdout_logfile = /home/ubuntu/log/log.log' >> GANDS/$APPLICATION_NAME'.conf'
-echo 'stderr_logfile = /home/ubuntu/log/error.log' >> GANDS/$APPLICATION_NAME'.conf'
+echo '[program:'$APPLICATION_NAME']' >> /etc/supervisor/conf.d/$APPLICATION_NAME'.conf'
+echo 'directory ='$PROJECT_ROOT_PATH >> /etc/supervisor/conf.d/$APPLICATION_NAME'.conf'
+echo 'command = /usr/local/bin/gunicorn_config.sh' >> /etc/supervisor/conf.d/$APPLICATION_NAME'.conf'
+echo 'stdout_logfile = /home/ubuntu/log/log.log' >> /etc/supervisor/conf.d/$APPLICATION_NAME'.conf'
+echo 'stderr_logfile = /home/ubuntu/log/error.log' >> /etc/supervisor/conf.d/$APPLICATION_NAME'.conf'
 #creating log directory and files
 mkdir /home/ubuntu/log
 touch /home/ubuntu/log/log.log
