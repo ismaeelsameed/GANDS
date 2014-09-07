@@ -77,5 +77,5 @@ cd /home/ubuntu/log/
 touch gunicorn_log.log
 sudo supervisorctl restart $APPLICATION_NAME
 sudo service nginx restart
-echo "Ehsibha deployment has finished Successfully"
+echo "Your deployment has finished Successfully"
 echo "Enjooooooooooooooooooy"
