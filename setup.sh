@@ -34,6 +34,8 @@ sudo pip install -r $REQUIREMENTS_FILE_PATH
 #sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
 #sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
 #copy gunicorn config file to /usr/local/bin
+sudo git clone https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
+sudo git clone https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
 sudo cp GANDS/gunicorn_config.sh /usr/local/bin
 #writing the config file
 echo -e '\nNUM_WORKERS='$NUM_WORKERS >> /usr/local/bin/gunicorn_config.sh
