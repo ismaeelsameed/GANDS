@@ -24,15 +24,7 @@ sudo apt-get install nginx <<<y
 . GANDS/GANDS.conf
 sudo git clone $PROJECT_GIT_URL
 sudo pip install -r $REQUIREMENTS_FILE_PATH
-#sudo pip install django==1.6
 ## install the required requirements for the application
-#sudo pip install django-crispy-forms
-#sudo pip install mpld3
-#sudo pip install jinja2
-#sudo pip install reportlab
-#sudo pip install logger
-#sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
-#sudo pip install git+https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
 #copy gunicorn config file to /usr/local/bin
 sudo git clone https://ismaeelsameed@bitbucket.org/omargammoh/ehsibha /usr/local/lib/python2.7/dist-packages/ehsibha
 sudo git clone https://ismaeelsameed@bitbucket.org/omargammoh/common /usr/local/lib/python2.7/dist-packages/common
