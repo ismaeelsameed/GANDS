@@ -33,7 +33,7 @@ echo 'cd '$PROJECT_ROOT_PATH >> /usr/local/bin/gunicorn_config.sh
 echo 'test -d $LOGDIR || mkdir -p $LOGDIR' >> /usr/local/bin/gunicorn_config.sh
 echo 'DJANGO_SETTINGS_MODULE='$DJANGO_SETTINGS_FILE >> /usr/local/bin/gunicorn_config.sh
 echo 'DJANGO_WSGI_MODULE='$DJANGO_WSGI_FILE >> /usr/local/bin/gunicorn_config.sh
-echo 'exec gunicorn '$DJANGO_WSGI_FILE':application --preload --debug --log-level=debug --log-file=$LOGFILE -w $NUM_WORKERS --settings=$DJANGO_SETTINGS_MODULE' >> /usr/local/bin/gunicorn_config.sh
+echo 'exec gunicorn '$DJANGO_WSGI_FILE':application --preload --log-level=debug --log-file=$LOGFILE -w $NUM_WORKERS --settings=$DJANGO_SETTINGS_MODULE' >> /usr/local/bin/gunicorn_config.sh
 cd /usr/local/bin
 # change file permissions
 sudo chmod u+x gunicorn_config.sh
