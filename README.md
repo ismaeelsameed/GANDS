@@ -6,7 +6,7 @@ Do you have a django project that needs deployment on amazon EC2? this is the be
 
 after initializing your amazon EC2 instance, just ssh it, then fill the GANDS configuration file, run the below script and let the magic begin.
 ```
-$ sudo bash Gands/setup.sh
+$ sudo bash GANDS/setup.sh
 ```
 Support or Contact
 Feel free to contact me anytime for any inquiry ,or contribute with me to make it better
